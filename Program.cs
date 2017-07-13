@@ -26,12 +26,14 @@ public interface IWheels
 public interface IWaterbased
 {
     double MaxWaterSpeed { get; set; }
+    void Drive();
 
 }
 
 public interface IGroundbased
 {
     double MaxLandSpeed { get; set; }
+    void Drive();
 }
 
 public interface IAirbased
@@ -84,7 +86,7 @@ public class HotAirBalloon : IVehicle, IAirbased, IDoors
     }
     public void Fly()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("The hot air balloon zips through the air with the greatest of ease");
     }
     public void Start()
     {
@@ -130,7 +132,7 @@ public class Cessna : IVehicle, IDoors, IWheels, IGroundbased
   public double MaxLandSpeed { get; set; }
   public void Drive()
   {
-    throw new NotImplementedException();
+    Console.WriteLine("Plane car is driving");
   }
   public void Start()
   {
@@ -152,7 +154,7 @@ public class Hatchback : IVehicle, IDoors, IWheels, IGroundbased
   public double MaxLandSpeed { get; set; }
   public void Drive()
   {
-    throw new NotImplementedException();
+    Console.WriteLine("Hatchback is driving");
   }
   public void Start()
   {
@@ -180,20 +182,40 @@ public class Program
         // With a single `foreach`, have each vehicle Fly()
         foreach (IAirbased item in flyingstuff)
         {
-            Console.WriteLine($"{item.Fly()}");
+            item.Fly();
         }
 
-
-
         // Build a collection of all vehicles that operate on roads
+        Motorcycle motorcycle1 = new Motorcycle();
+        Motorcycle motorcycle2 = new Motorcycle();
+        Hatchback hondafit = new Hatchback();
+        Cessna planecar = new Cessna();
+        
+        List <IGroundbased> groundstuff = new List<IGroundbased>();
+        groundstuff.Add(motorcycle1);
+        groundstuff.Add(motorcycle2);
+        groundstuff.Add(hondafit);
+        groundstuff.Add(planecar);
 
         // With a single `foreach`, have each road vehicle Drive()
-
-
+        foreach (IGroundbased item in groundstuff)
+        {
+            item.Drive();
+        }
 
         // Build a collection of all vehicles that operate on water
+        JetSki jetski1 = new JetSki();
+        JetSki jetski2 = new JetSki();
         
+        List <IWaterbased> waterstuff = new List<IWaterbased>();
+        waterstuff.Add(jetski1);
+        waterstuff.Add(jetski2);
+
         // With a single `foreach`, have each water vehicle Drive()
+        foreach (IWaterbased item in waterstuff)
+        {
+            item.Drive();
+        }
     }
 
 }
